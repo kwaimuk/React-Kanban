@@ -96,7 +96,8 @@ class TodoList extends React.Component {
     return (
       <div className="test">
         {this.props.cards.map(item => (
-<div className = {`${item.status}`}>
+<div className = {`card ${item.priority}`}>
+// {`${item.status}`}
           <strong>Card {item.id}: {item.title}</strong>
           <br />{item.priority}
           <br />{item.status}
