@@ -12,16 +12,16 @@ body {
   width: 30vw;
   padding: 1vw; }
 
-.card .low {
+.card.low {
   background-color: lightsalmon; }
 
-.card .medium {
+.card.medium {
   background-color: palegreen; }
 
-.card .high {
+.card.high {
   background-color: pink; }
 
-.card .blocker {
+.card.blocker {
   background-color: yellow; }
 
 .test {
