@@ -99,6 +99,10 @@ class TodoApp extends React.Component {
             <option value="high">High</option>
             <option value="blocker">Blocker</option>
           </select>
+          <br /> <input type="radio" name="status" value="Queue" onChange={this.handleStatusChange}  defaultChecked={true}/>In Queue <br />
+         <input type="radio" name="status" value="In_Progress" onChange={this.handleStatusChange}  />In Progress <br />
+         <input type="radio" name="status" value="Done" onChange={this.handleStatusChange}  />Done
+          <br/>
 
           <br/>
 
@@ -136,10 +140,6 @@ componentWillMount() {
           <strong>Card {item.id}: {item.title}</strong>
           <br />{item.priority}
           <br />{item.status}
-          <br />    <form >     <input type="radio" name="status" value="Queue" onChange={this.handleStatusChange}  defaultChecked={true}/>In Queue <br />
-         <input type="radio" name="status" value="In_Progress" onChange={this.handleStatusChange}  />In Progress <br />
-         <input type="radio" name="status" value="Done" onChange={this.handleStatusChange}  />Done
-         <br /> <button>change</button> </form>
           <br />{item.createdBy}
           <br />{item.assignedTo}
 </div>

@@ -66,16 +66,20 @@ class NewCardForm extends React.Component {
     super(props);
 
     // set the initial state
-    this.state = {
-      title: "",
-      author: ""
-    };
-
+this.state = {
+  cards: [],
+  title: '',
+  priority: '',
+  status: 'Queue',
+  createdBy: '',
+  assignedTo: ''};
     this.handleTitleChange = this.handleTitleChange.bind(this);
-    this.handleAuthorChange = this.handleAuthorChange.bind(this);
+    this.handlePriorityChange = this.handlePriorityChange.bind(this);
+    this.handleStatusChange = this.handleStatusChange.bind(this);
+    this.handleCreatedByChange = this.handleCreatedByChange.bind(this);
+    this.handleAssignedToChange = this.handleAssignedToChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-
-  }
+ }
 
   addCard(card){
     console.log(card);
@@ -84,9 +88,15 @@ class NewCardForm extends React.Component {
 
     const title = "";
     const author = "";
+    const status ='Queue';
+    const createBy = "";
+    const assignedTo = "";
     this.setState({
       title,
-      author
+      priority,
+      status,
+      createdBy,
+      assignedTo
     });
   }
 
@@ -95,30 +105,51 @@ class NewCardForm extends React.Component {
     this.addCard(this.state);
   }
 
-  handleTitleChange(event) {
+    handleTitleChange(event) {
     this.setState({ title : event.target.value });
   }
-
-  handleAuthorChange(event) {
-    this.setState({ author : event.target.value });
+    handlePriorityChange(event) {
+    this.setState({ priority : event.target.value });
   }
+    handleStatusChange(event) {
+    this.setState({ status : event.target.value });
+  }
+    handleCreatedByChange(event) {
+    this.setState({ createdBy : event.target.value });
+  }
+    handleAssignedToChange(event) {
+    this.setState({ assignedTo : event.target.value });
+  }
+
 
   render(){
     return (
-      <form onSubmit={this.handleSubmit}>
-        <div>
-          <input type="text" placeholder="title" onChange={this.handleTitleChange} value={this.state.title} />
-        </div>
-        <div>
-          <input type="text" placeholder="author" onChange={this.handleAuthorChange} value={this.state.author} />
-        </div>
-        <div>
-          <button type="submit">Add Card</button>
-        </div>
-      </form>
+        <form onSubmit={this.handleSubmit}>
+
+          <input onChange={this.handleTitleChange} value={this.state.title } placeholder="Title" required/>
+          <br/>
+          <select value={this.state.value} onChange={this.handlePriorityChange}>
+            <option  disabled selected>Select Your Priority:</option>
+            <option value="low">Low</option>
+            <option value="medium">Medium</option>
+            <option value="high">High</option>
+            <option value="blocker">Blocker</option>
+          </select>
+          <br /> <input type="radio" name="status" value="Queue" onChange={this.handleStatusChange}  defaultChecked={true}/>In Queue <br />
+         <input type="radio" name="status" value="In_Progress" onChange={this.handleStatusChange}  />In Progress <br />
+         <input type="radio" name="status" value="Done" onChange={this.handleStatusChange}  />Done
+          <br/>
+
+          <input onChange={this.handleCreatedByChange} value={this.state.createdBy} placeholder="Created By" required/>
+          <br/>
+          <input onChange={this.handleAssignedToChange} value={this.state.assignedTo} placeholder="Assigned To" required/>
+          <br/>
+          <button>{'Add Card #' + (this.state.cards.length + 1)}</button>
+        </form>
     )
   }
 }
+
 
 class App extends React.Component{
 
