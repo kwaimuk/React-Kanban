@@ -47,10 +47,20 @@ class Card extends React.Component {
 
 
  handleClick(card) {
-    card.status = "Done";
+  switch (card.status) {
+    case "Queue":
+        card.status = "In Progress";
+        break;
+    case "In Progress":
+        card.status = "Done";
+        break;
+    case "Done":
+        card.status = "Queue";
+        break;
+}
     console.log("card",card);
     this.setState({});
-  }hi
+  }
 
 
   render(){
