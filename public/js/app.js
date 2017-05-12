@@ -28,32 +28,70 @@ const getCardsFromFakeXHR = () => new Promise((resolve, reject) => {
   setTimeout(() => resolve(cardsFromFakeDB), 250);
 });
 
-const Card = (props) => (
+class Card extends React.Component {
+  constructor(props){
+    super(props);
 
-<div className = {`card ${props.card.priority}`}>
+    // set the initial state
+    // this.state = {
+    //   title: "",
+    //   priority: "",
+    //   status: "",
+    //   createdBy: "",
+    //   assignedTo: "",
+    //   id: ""
+    // };
+    this.handleClick = this.handleClick.bind(this);
 
-          <strong>Card {props.card.id}: {props.card.title}</strong>
-          <br />{props.card.priority}
-          <br />{props.card.status}
-          <br />{props.card.createdBy}
-          <br />{props.card.assignedTo}
-</div>
+  }
 
+
+ handleClick(card) {
+    card.status = "Done";
+    console.log("card",card);
+    this.setState({});
+  }hi
+
+
+  render(){
+    return (
+  <div className = {`card ${this.props.card.priority}`}>
+    <h3>Task: { this.props.card.title }</h3>
+    <div>Priority Level:  { this.props.card.priority }</div>
+    <div onClick={() =>this.handleClick(this.props.card)} >Status of Task: { this.props.card.status }</div>
+    <div>Created By:  { this.props.card.createdBy }</div>
+    <div>Assigned To:  { this.props.card.assignedTo }</div>
+  </div>
 );
+  }
+}
+
+
+// const Card = (props) => (
+
+// <div className = {`card ${props.card.priority}`}>
+
+//           <strong>Card {props.card.id}: {props.card.title}</strong>
+//           <br />{props.card.priority}
+//           <br />{props.card.status}
+//           <br />{props.card.createdBy}
+//           <br />{props.card.assignedTo}
+// </div>
+
+// );
 
 const CardSearchFilter = filter =>
-  ({ title, author }) =>
+  ({ status }) =>
     filter === "" ||
-      title.toLowerCase().indexOf(filter.toLowerCase()) >= 0 ||
-      author.toLowerCase().indexOf(filter.toLowerCase()) >= 0;
+      status.toLowerCase().indexOf(filter.toLowerCase()) >= 0;
 
 const CardList = ({ cards, filter }) => (
-  <ul>
+  <div>
     { cards
       .filter(CardSearchFilter(filter))
       .map( card => <Card card={card} /> )
     }
-  </ul>
+    </div>
 );
 
 const CardFilterInput = ({ setFilter }) => (
@@ -81,6 +119,9 @@ this.state = {
     this.handleSubmit = this.handleSubmit.bind(this);
  }
 
+
+
+
   addCard(card){
     console.log(card);
     // update my parent's cards state
@@ -89,8 +130,9 @@ this.state = {
     const title = "";
     const author = "";
     const status ='Queue';
-    const createBy = "";
+    const createdBy = "";
     const assignedTo = "";
+    const priority = "";
     this.setState({
       title,
       priority,
@@ -123,6 +165,7 @@ this.state = {
 
 
   render(){
+console.log('this.handleSubmit', this.cards)
     return (
         <form onSubmit={this.handleSubmit}>
 
@@ -136,7 +179,7 @@ this.state = {
             <option value="blocker">Blocker</option>
           </select>
           <br /> <input type="radio" name="status" value="Queue" onChange={this.handleStatusChange}  defaultChecked={true}/>In Queue <br />
-         <input type="radio" name="status" value="In_Progress" onChange={this.handleStatusChange}  />In Progress <br />
+         <input type="radio" name="status" value="In Progress" onChange={this.handleStatusChange}  />In Progress <br />
          <input type="radio" name="status" value="Done" onChange={this.handleStatusChange}  />Done
           <br/>
 
@@ -144,7 +187,7 @@ this.state = {
           <br/>
           <input onChange={this.handleAssignedToChange} value={this.state.assignedTo} placeholder="Assigned To" required/>
           <br/>
-          <button>{'Add Card #' + (this.state.cards.length + 1)}</button>
+          <button>{'Add Card'}</button>
         </form>
     )
   }
@@ -164,6 +207,7 @@ class App extends React.Component{
     this.setFilter = this.setFilter.bind(this);
     this.addCard = this.addCard.bind(this);
 
+    console.log('props', this.state);
   }
 
   componentWillMount() {
@@ -185,12 +229,20 @@ class App extends React.Component{
     this.setState({
       cards : this.state.cards.concat(card)
     });
+    console.log("card", card);
   }
+
+ handleClick() {
+    this.replaceState({
+      status : "done"
+    });
+  }
+
 
   render(){
     return (
       <div>
-        <h1>Hello React</h1>
+        <h1>Kanban</h1>
         <CardFilterInput setFilter={this.setFilter} />
         <CardList cards={this.state.cards} filter={this.state.filter}></CardList>
         <NewCardForm addCard={this.addCard}/>
