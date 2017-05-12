@@ -1,5 +1,3 @@
-const reactContainer = document.getElementById("root");
-
 const getCardsFromFakeXHR = () => new Promise((resolve, reject) => {
   const cardsFromFakeDB = [
     {
@@ -25,7 +23,7 @@ const getCardsFromFakeXHR = () => new Promise((resolve, reject) => {
     }
   ];
 
-  setTimeout(() => resolve(cardsFromFakeDB), 250);
+  resolve(cardsFromFakeDB);
 });
 
 class Card extends React.Component {
@@ -84,11 +82,14 @@ class Card extends React.Component {
     });
   }
 
+//prevents refresh
   handleSubmit(event) {
     event.preventDefault();
     this.updateCard(this.state);
   }
 
+
+// DOM targets
   handleStatusChange(event) {
     this.setState({ status : event.target.value });
   }
@@ -160,12 +161,12 @@ class DoneColumn extends React.Component {
 
   render(){
     return (
-        <div>
+
           <div className="done">
             <p>Done</p>
             <DoneList cards={this.props.cards} updateCard={this.props.updateCard}></DoneList>
           </div>
-        </div>
+
 
     )
   }
@@ -179,12 +180,12 @@ class ProgressColumn extends React.Component {
 
   render(){
     return (
-        <div>
+
           <div className="progress">
             <p>In Progress</p>
             <ProgressList cards={this.props.cards} updateCard={this.props.updateCard}></ProgressList>
           </div>
-        </div>
+
     )
   }
 }
@@ -193,12 +194,12 @@ class QueueColumn extends React.Component {
 
   render(){
     return (
-        <div>
+
           <div className="queue">
             <p>Queue</p>
             <QueueList cards={this.props.cards} updateCard={this.props.updateCard}></QueueList>
           </div>
-        </div>
+
     )
   }
 }
@@ -372,9 +373,8 @@ class App extends React.Component{
 
   render(){
     return (
-      <div>
-        <h1>Hello Kanban!</h1>
-        <NewCardForm addCard={this.addCard}/>
+      <div id="board">
+      <NewCardForm addCard={this.addCard}/>
         <QueueColumn cards={this.state.cards} updateCard={this.updateCard} />
         <ProgressColumn cards={this.state.cards} updateCard={this.updateCard} />
         <DoneColumn cards={this.state.cards} updateCard={this.updateCard} />
@@ -383,13 +383,16 @@ class App extends React.Component{
   }
 };
 
-ReactDOM.render(
 
-        // <CardList cards={this.state.cards} filter={this.state.filter}></CardList>
+// ReactDOM.render(
+//   // component to render
+//   <NewCardForm/>,
+//   // dom element, or use getElementById
+//   document.getElementById("root0")
+// );
+ReactDOM.render(
   // component to render
   <App />,
-
-  // where to inject this component
   // dom element, or use getElementById
-  reactContainer
+  document.getElementById("root")
 );

@@ -2,14 +2,25 @@ body {
   background: OldLace;
   font-family: 'Open Sans', sans-serif; }
 
+#board {
+  display: flex;
+  background-color: Wheat; }
+
+.queue {
+  width: 32vw; }
+
+.progress {
+  width: 32vw; }
+
+.done {
+  width: 32vw; }
+
 .card {
   border-radius: 10px 10px 10px 10px;
-  -moz-border-radius: 10px 10px 10px 10px;
-  -webkit-border-radius: 10px 10px 10px 10px;
   border: 0px solid #000000;
   box-shadow: -1px 10px 18px -4px rgba(0, 0, 0, 0.75);
   background-color: azure;
-  width: 30vw;
+  width: 25vw;
   padding: 1vw; }
 
 .card.low {
@@ -21,7 +32,7 @@ body {
 .card.high {
   background-color: pink; }
 
-.card.Done {
+.card.blocker {
   background-color: yellow; }
 
 .test {
