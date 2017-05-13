@@ -58,19 +58,19 @@ class Card extends React.Component {
         card.status = "Queue";
         break;
   }
-    console.log("card",card);
+
     this.setState({});
   }
 
   updateCard(card){
-    console.log(this.props);
-    console.log(card);
+
+
     // update my parent's cards state
     this.props.updateCard(card);
 
     const title = this.props.card.title;
     const priority = "";
-    const status = "Queue";
+    const status = "";
     const createdBy = "";
     const assignedTo = "";
     this.setState({
@@ -91,6 +91,7 @@ class Card extends React.Component {
 
 // DOM targets
   handleStatusChange(event) {
+    console.log("event.target.value",event.target.value  );
     this.setState({ status : event.target.value });
   }
 
@@ -99,9 +100,10 @@ class Card extends React.Component {
     return (
   <div className = {`card ${this.props.card.priority}`}>
     <form onSubmit={this.handleSubmit}>
-    <h3>Task: { this.props.card.title }</h3>
-    <div>Priority Level:  { this.props.card.priority }</div>
-    <div onClick={() =>this.handleClick(this.props.card)} >Status of Task: { this.props.card.status }</div>
+    <br />
+    <p>Task: { this.props.card.title }</p>
+    <div>Priority:  { this.props.card.priority }</div>
+    <div onClick={() =>this.handleClick(this.props.card)} >Status: { this.props.card.status }</div>
     <div>Created By:  { this.props.card.createdBy }</div>
     <div>Assigned To:  { this.props.card.assignedTo }</div>
           <button type="submit">Update Card</button>
@@ -124,30 +126,30 @@ const DoneSearch = filter =>
       status === 'Done';
 
 const QueueList = ({ cards, filter, updateCard }) => (
-  <ul>
+  <p>
     { cards
       .filter(QueueSearch())
       .map( card => <Card card={card} updateCard={updateCard} /> )
     }
-  </ul>
+  </p>
 );
 
 const ProgressList = ({ cards, filter, updateCard  }) => (
-  <ul>
+  <p>
     { cards
       .filter(ProgressSearch())
       .map( card => <Card card={card} updateCard={updateCard} /> )
     }
-  </ul>
+  </p>
 );
 
 const DoneList = ({ cards, filter, updateCard  }) => (
-  <ul>
+  <p>
     { cards
       .filter(DoneSearch())
       .map( card => <Card card={card} updateCard={updateCard} /> )
     }
-  </ul>
+  </p>
 );
 
 const CardFilterInput = ({ setFilter }) => (
@@ -166,8 +168,6 @@ class DoneColumn extends React.Component {
             <p>Done</p>
             <DoneList cards={this.props.cards} updateCard={this.props.updateCard}></DoneList>
           </div>
-
-
     )
   }
 }
@@ -235,7 +235,7 @@ class NewCardForm extends React.Component {
       cards: [],
       title: '',
       priority: '',
-      status: 'Queue',
+      status: '',
       createdBy: '',
       assignedTo: ''};
 
@@ -251,13 +251,13 @@ class NewCardForm extends React.Component {
 
 
   addCard(card){
-    console.log(card);
+
     // update my parent's cards state
     this.props.addCard(card);
 
     const title = "";
     const author = "";
-    const status ='Queue';
+    const status ='';
     const createdBy = "";
     const assignedTo = "";
     const priority = "";
@@ -273,11 +273,12 @@ class NewCardForm extends React.Component {
   handleSubmit(event) {
     event.preventDefault();
     this.addCard(this.state);
+    NewForm.reset();
 
   }
 
     handleTitleChange(event) {
-    console.log('event',event);
+
     this.setState({ title : event.target.value });
   }
     handlePriorityChange(event) {
@@ -297,19 +298,19 @@ class NewCardForm extends React.Component {
   render(){
 
     return (
-        <form onSubmit={this.handleSubmit}>
+        <form id="NewForm" onSubmit={this.handleSubmit}>
           <input onChange={this.handleTitleChange} value={this.state.title } placeholder="Title" required/>
           <br/>
-          <select value={this.state.value} onChange={this.handlePriorityChange}>
-            <option  disabled selected>Select Your Priority:</option>
-            <option value="low">Low</option>
+          <select value={this.state.value} onChange={this.handlePriorityChange} required>
+            <option value="">Select Your Priority:</option>
+            <option value="low" >Low</option>
             <option value="medium">Medium</option>
             <option value="high">High</option>
-            <option value="blocker">Blocker</option>
+            <option value="blocker" >Blocker</option>
           </select>
-          <br /> <input type="radio" name="status" value="Queue" onChange={this.handleStatusChange}  defaultChecked={true}/>In Queue <br />
-         <input type="radio" name="status" value="In Progress" onChange={this.handleStatusChange}  />In Progress <br />
-         <input type="radio" name="status" value="Done" onChange={this.handleStatusChange}  />Done
+          <br /> <input type="radio" name="status" value="Queue" onChange={this.handleStatusChange}  required/>In Queue <br />
+         <input type="radio" name="status" value="In Progress" onChange={this.handleStatusChange}  required/>In Progress <br />
+         <input type="radio" name="status" value="Done" onChange={this.handleStatusChange}  required/>Done
           <br/>
 
           <input onChange={this.handleCreatedByChange} value={this.state.createdBy} placeholder="Created By" required/>
@@ -361,10 +362,13 @@ class App extends React.Component{
     this.setState({
       cards : this.state.cards.concat(card)
     });
-    console.log("card", card);
+
   }
 
   updateCard(card){
+if(card === null){
+  return;
+}
     this.setState({
       cards : this.state.cards.concat(card)
     });

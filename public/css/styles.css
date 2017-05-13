@@ -4,24 +4,33 @@ body {
 
 #board {
   display: flex;
-  background-color: Wheat; }
+  background-color: Wheat;
+  height: 80vh; }
 
 .queue {
-  width: 32vw; }
+  border: 1px solid #000000;
+  width: 30vw;
+  padding-left: 10px; }
 
 .progress {
-  width: 32vw; }
+  border: 1px solid #000000;
+  width: 30vw;
+  padding-left: 10px; }
 
 .done {
-  width: 32vw; }
+  border: 1px solid #000000;
+  width: 30vw;
+  padding-left: 10px; }
 
 .card {
   border-radius: 10px 10px 10px 10px;
   border: 0px solid #000000;
   box-shadow: -1px 10px 18px -4px rgba(0, 0, 0, 0.75);
   background-color: azure;
-  width: 25vw;
-  padding: 1vw; }
+  width: 20vw;
+  padding-left: 10px;
+  padding-bottom: 10px;
+  margin: auto; }
 
 .card.low {
   background-color: lightsalmon; }
@@ -34,7 +43,3 @@ body {
 
 .card.blocker {
   background-color: yellow; }
-
-.test {
-  display: flex;
-  background-color: gray; }

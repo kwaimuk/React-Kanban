@@ -83,6 +83,9 @@ class TodoApp extends React.Component {
       assignedTo: ''
     }));
   }
+
+buttonClick() {console.log("a")}
+
    render() {
     return (
       <div>
@@ -110,7 +113,7 @@ class TodoApp extends React.Component {
           <br/>
           <input onChange={this.handleAssignedToChange} value={this.state.assignedTo} placeholder="Assigned To" required/>
           <br/>
-          <button>{'Add Card #' + (this.state.cards.length + 1)}</button>
+          <button onClick= {this.buttonClick}>{'Add Card #' + (this.state.cards.length + 1)}</button>
         </form>
       </div>
     );
